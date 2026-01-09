@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FairSkinDapters</title>
+
+  <!-- Static CSS served by FastAPI -->
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+  <header>
+    <h1>FairSkinDapters: A fairness aware skin cancer prediction service</h1>
+    <p>Upload an image and view prediction + confidence + CAM overlay.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+      <!-- LEFT -->
+      <section class="card">
+        <h2>Input</h2>
+        <p class="hint">Choose an image (JPG/PNG) then click <b>Predict</b>.</p>
+
+        <div class="upload">
+          <input id="file" type="file" accept="image/*" />
+          <div class="row" style="margin-top:10px;">
+            <button id="predictBtn" disabled>Predict</button>
+            <button id="clearBtn" class="btn-secondary" disabled>Clear</button>
+            <span id="leftPill" class="pill">Idle</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="imgbox">
+            <div class="empty" id="origEmpty">Original image preview appears here</div>
+            <img id="origImg" alt="" style="display:none;" />
+          </div>
+        </div>
+
+      </section>
+
+      <!-- RIGHT -->
+      <section class="card">
+        <h2>Output</h2>
+        <p class="hint">Prediction (1=Malignant, 0=Benign), probability + confidence, and CAM.</p>
+
+        <div class="status">
+          <div class="row" style="gap:10px;">
+            <div id="spinner" class="spinner" style="display:none;"></div>
+            <span id="statusText">No results yet.</span>
+          </div>
+          <span id="rightPill" class="pill">Waiting</span>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="k">Prediction</div>
+            <div class="v" id="predLabel">--</div>
+            <div class="s" id="predRaw">--</div>
+          </div>
+          <div class="metric">
+            <div class="k">Confidence</div>
+            <div class="v" id="confLevel">--</div>
+            <div class="s" id="probText">--</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="imgbox">
+            <div class="empty" id="camEmpty">CAM image will appear here</div>
+            <img id="camImg" alt="CAM overlay" style="display:none;" />
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<footer>
+        Copyright: 2026, Kessy Okundia
+</footer>
+  <!-- Static JS served by FastAPI -->
+  <script src="{{ url_for('static', path='app.js') }}"></script>
+</body>
+</html>
